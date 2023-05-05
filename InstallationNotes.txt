@@ -1,0 +1,75 @@
+
+Segment Anything 
+
+
+Installation
+
+Following: https://github.com/facebookresearch/segment-anything
+
+In lightning
+
+sudo apt install libopencv-dev
+sudo apt install libxcb-cursor0
+
+## Installed CUDA
+Following nvidia instructions I installed and verified cuda-12.1
+
+I had to go back and install cuDNN. I could not verify it directly. 
+
+## Setup Environment and Install PyTorch
+mkdir ~/Documents/Projects/microFibers/segment_anything
+conda create -n segment_anything python=3.10; conda activate segment_anything
+# conda create -n segment_anything python=3.10 opencv matplotlib; conda activate segment_anything # This later triggers a 'solving env fail'
+
+
+Using PyTorch Configurator at: https://pytorch.org/get-started/locally/
+
+pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118 # This worked!!!
+
+`conda install pytorch torchvision torchaudio pytorch-cuda=11.8 -c pytorch -c nvidia` # Did not work.
+- A post () said 11.8 works with cuda 12.1
+  - https://discuss.pytorch.org/t/install-pytorch-with-cuda-12-1/174294/3
+  
+Compile it from source: Did not work 
+
+### Testing PyTorch
+- Launch `python`
+import torch
+x = torch.rand(5, 3)
+print(x)
+torch.cuda.is_available()
+torch.backends.cudnn.enabled
+torch.backends.cudnn.version()
+- Should return True, True, 8700
+
+## Back to Segment Anything
+
+cd segment-anything; pip install -e .
+#conda install opencv matplotlib;
+
+## Test it
+python scripts/amg.py --checkpoint model/sam_vit_h_4b8939.pth --model-type vit_h --input /home/Projects/uFibers/Elysium_Micrographs/2023/spools/spool_224/20230426/bundleset_50_1/1/cross-section/230427_1246_000_G001_I.jpg --output output/
+    God damn it!
+    torch.cuda.OutOfMemoryError: CUDA out of memory. Tried to allocate 15.35 GiB (GPU 0; 7.78 GiB total capacity; 3.28 GiB already allocated; 3.75 GiB free; 3.61 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+
+Instead, running the example at https://github.com/facebookresearch/segment-anything/blob/main/notebooks/automatic_mask_generator_example.ipynb
+- coding it into testing.py 
+
+
+
+I started to run into issues. 
+- Some QT GUI stuff.
+- Python/VSC would kill the process
+- Then moved to running from script... Torche not compiled with CUDA. 
+
+These fucking things are always so fragile. 
+- On a next attempt, start by upgrading CUDA. 
+
+
+
+conda deactivate; conda remove --name segment_anything --all
+
+
+
+
+
