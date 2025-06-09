@@ -22,13 +22,15 @@ The code requires `python>=3.8`, as well as `pytorch>=1.7` and `torchvision>=0.8
 Install Segment Anything:
 
 ```
-pip install git+https://github.com/facebookresearch/segment-anything.git
+#pip install git+https://github.com/facebookresearch/segment-anything.git
+pip install git+https://github.com/ElysiumRobotics/segment-anything.git
 ```
 
 or clone the repository locally and install with
 
 ```
-git clone git@github.com:facebookresearch/segment-anything.git
+#git clone git@github.com:facebookresearch/segment-anything.git
+git clone git@github.com:ElysiumRobotics/segment-anything.git
 cd segment-anything; pip install -e .
 ```
 
@@ -41,7 +43,7 @@ pip install opencv-python pycocotools matplotlib onnxruntime onnx
 ## <a name="GettingStarted"></a>Getting Started
 
 First download a [model checkpoint](#model-checkpoints). Then the model can be used in just a few lines to get masks from a given prompt:
-
+We are using "sam_vit_h_4b8939.pth" stored in 'model' folder
 ```
 from segment_anything import SamPredictor, sam_model_registry
 sam = sam_model_registry["<model_type>"](checkpoint="<path/to/checkpoint>")

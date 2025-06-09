@@ -4,7 +4,10 @@ Segment Anything
 
 Installation
 
+- There is another Intallation notes in 'fiber_analysis/SegmentAnything.txt'. Try that first.
+
 Following: https://github.com/facebookresearch/segment-anything
+- Actually use Elysium's fork
 
 In lightning
 
@@ -51,6 +54,7 @@ cd segment-anything; pip install -e .
 python scripts/amg.py --checkpoint model/sam_vit_h_4b8939.pth --model-type vit_h --input /home/Projects/uFibers/Elysium_Micrographs/2023/spools/spool_224/20230426/bundleset_50_1/1/cross-section/230427_1246_000_G001_I.jpg --output output/
     God damn it!
     torch.cuda.OutOfMemoryError: CUDA out of memory. Tried to allocate 15.35 GiB (GPU 0; 7.78 GiB total capacity; 3.28 GiB already allocated; 3.75 GiB free; 3.61 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+    In hindsight, this was probably due to the enormous image I was passing. 
 
 Instead, running the example at https://github.com/facebookresearch/segment-anything/blob/main/notebooks/automatic_mask_generator_example.ipynb
 - coding it into testing.py 

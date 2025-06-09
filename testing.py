@@ -36,7 +36,8 @@ print('Resized Dimensions : ',resized.shape)
 
 
 sam = sam_model_registry["vit_h"](checkpoint="model/sam_vit_h_4b8939.pth")
-device = "cuda"
+device = "cpu"
+#device = "cuda"
 sam.to(device=device)
 
 #predictor = SamPredictor(sam)
